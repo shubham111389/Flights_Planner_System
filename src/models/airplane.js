@@ -3,6 +3,8 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
+  console.log( "inside the model file");
+
   class Airplane extends Model {
     /**
      * Helper method for defining associations.
