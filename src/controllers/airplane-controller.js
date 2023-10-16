@@ -9,7 +9,8 @@ async function createAirplane(req, res) {
             modelNumber: req.body.modelNumber,
             capacity: req.body.capacity
         });
-       
+        SuccessResponse.data=airplane;
+
         return res
                 .status(StatusCodes.CREATED)
                 .json
@@ -30,7 +31,33 @@ async function createAirplane(req, res) {
                 );
     }
 }
+async function getAirplanes ( req,res){
+    console.log( req.body);
+    try {
+         const airplanes = await Airplaneservice.getAirplanes();
+         SuccessResponse.data=airplanes;
+         return res
+         .status(StatusCodes.CREATED)
+         .json
+         ({
+         success : true,
+         message : 'succesfully fetch the airplanes ',
+         data :'airplane'
+         }
+         );
+    }
+    catch(error){
+        return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({
+            success :false,
+            error : error
+        }
+        );
+}
+}
 
 module.exports= {
-    createAirplane
+    createAirplane,
+    getAirplanes
 }

@@ -10,9 +10,26 @@ async function createAirplane(data) {
         throw error;
     }
 }
+async function getAirplanes(){
+    try{
+        const airplane= await airplaneRepository.getAll();
+        return airplane;
+    
+
+    }
+
+    catch (error){
+        throw error;
+
+    }
+
+   
+}
+
 
 
 
 module.exports ={
-    createAirplane
+    createAirplane,
+    getAirplanes
 }
