@@ -1,6 +1,7 @@
 const {Airplaneservice} = require ('../services');
-console.log( "inside the airplane controller  file");
 const { StatusCodes} = require('http-status-codes');
+const { SuccessResponse, ErrorResponse } = require('../utils/common');
+
 
 async function createAirplane(req, res) {
     try {
@@ -31,33 +32,53 @@ async function createAirplane(req, res) {
                 );
     }
 }
-async function getAirplanes ( req,res){
-    console.log( req.body);
+async function getAirplanes(req, res) {
     try {
-         const airplanes = await Airplaneservice.getAirplanes();
-         SuccessResponse.data=airplanes;
-         return res
-         .status(StatusCodes.CREATED)
-         .json
-         ({
-         success : true,
-         message : 'succesfully fetch the airplanes ',
-         data :'airplane'
-         }
-         );
-    }
-    catch(error){
+        const airplanes = await Airplaneservice.getAirplanes();
+        SuccessResponse.data = airplanes;
         return res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json({
-            success :false,
-            error : error
-        }
-        );
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+    } catch(error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
 }
+
+async function getAirplane(req, res) {
+    try {
+        const airplane = await Airplaneservice.getAirplane(req.params.id);
+        SuccessResponse.data = airplane;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+    } catch(error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+async function destroyAirplane(req, res) {
+    try {
+        const airplanes = await Airplaneservice.destroyAirplane(req.params.id);
+        SuccessResponse.data = airplanes;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+    } catch(error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
 }
 
 module.exports= {
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane,
+    destroyAirplane
 }
