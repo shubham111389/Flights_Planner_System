@@ -18,7 +18,7 @@ class CrudRepository {
             }
         });
         if(!response) {
-            throw new AppError('Not able to fund the resource', StatusCodes.NOT_FOUND);
+            throw new AppError('Not able to found the resource', StatusCodes.NOT_FOUND);
         }
        
         return response;
@@ -43,7 +43,10 @@ class CrudRepository {
             where: {
                 id: id
             }
-        })
+        });
+        if(!response[0]) {
+            throw new AppError('Not able to find or update the resource', StatusCodes.NOT_FOUND);
+        }
         return response;
     }
 }

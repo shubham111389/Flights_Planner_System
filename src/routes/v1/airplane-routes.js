@@ -1,8 +1,11 @@
 const express = require('express');
 const { AirplaneController } = require('../../controllers');
-const { getAirplane } = require('../../controllers/airplane-controller');
+const { AirplaneMiddlewares } = require('../../middlewares');
+
 const router = express.Router();
-router.post('/',  AirplaneController.createAirplane);
+router.post('/', 
+        AirplaneMiddlewares.validateCreateRequest,
+        AirplaneController.createAirplane);
 // /api/v1/airplanes GET
 router.get('/', 
         AirplaneController.getAirplanes);
@@ -10,5 +13,6 @@ router.get('/',
 router.get('/:id',AirplaneController.getAirplane)   ; 
 router.delete('/:id', 
         AirplaneController.destroyAirplane);
+router.patch("/:id", AirplaneController.updateAirplane);        
         
         module.exports =router;
