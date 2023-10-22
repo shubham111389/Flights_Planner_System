@@ -1,5 +1,6 @@
 const express = require('express');
 const { CityController } = require('../../controllers');
+const{ CityMiddlewares}= require('../../middlewares')
 const router = express.Router();
 router.post('/', 
         CityMiddlewares.validateCreateRequest,
@@ -8,6 +9,7 @@ router.post('/',
  // /api/v1/cities/:id PATCH
 router.patch('/:id', 
          CityMiddlewares.validateCreateRequest,
-            CityController.updateCity);        
+            CityController.updateCity); 
+         
         
 module.exports =router;
