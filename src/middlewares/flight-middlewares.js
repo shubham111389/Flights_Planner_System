@@ -74,7 +74,9 @@ function validateUpdateSeatsRequest(req, res, next) {
     next();
 }
 
+
 module.exports = {
     validateCreateRequest,
-    validateUpdateSeatsRequest
+    validateUpdateSeatsRequest,
+    
 }

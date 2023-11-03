@@ -8,9 +8,11 @@ router.post('/',
         FlightController.createFlight);
 
 // /api/v1/flights?trips=MUM-DEL GET
-router.get('/', 
-        FlightController.getAllFlights);
+router.get('/',   FlightController.getAllFlights);
  // /api/v1/flights/:id GET
-router.get('/:id', 
-FlightController.getFlight);       
+router.get('/:id', FlightController.getFlight);
+router.patch(  '/:id/seats', 
+        FlightMiddlewares.validateUpdateSeatsRequest,
+        FlightController.updateSeats
+);       
 module.exports = router;
